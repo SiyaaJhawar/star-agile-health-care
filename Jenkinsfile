@@ -50,11 +50,9 @@ def dockerHubUser="swatig139627"
  stage('Configure Monitoring') {
     steps {
         script {
-            // Assuming your Ansible deployment sets up some monitoring-related configurations
-            // Update Prometheus configuration to scrape metrics from your deployed services
-           
-            // Wait for Prometheus to reload the configuration
-           
+            sh "echo '  - job_name: Ansible slave' >> $prometheusConfigPath"
+            sh "echo '    static_configs:' >> $prometheusConfigPath"
+            sh "echo '      - targets: [\"172.31.3.191:9100\"]' >> $prometheusConfigPath"
 
             // Wait for some time to allow Prometheus to discover and scrape targets
 
