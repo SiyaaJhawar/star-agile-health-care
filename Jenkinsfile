@@ -32,4 +32,9 @@ def dockerHubUser="swatig139627"
             echo "Image push complete"
         }
 }
+ stage('Ansible Deployment') {
+      ansiblePlaybook credentialsId: 'ansibleid1', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
+        }
+    }
 }
+
