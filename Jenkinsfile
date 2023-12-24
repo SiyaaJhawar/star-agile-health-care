@@ -1,7 +1,7 @@
 node(){
  
     
-def containerName="health"
+def containerName="healthins"
 def tag="latest"
 def dockerHubUser="swatig139627"
     
