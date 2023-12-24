@@ -33,17 +33,6 @@ def dockerHubUser="swatig139627"
         }
 }
  
-        stage('Start Prometheus and Grafana') {
-            steps {
-                script {
-                    // Start Prometheus container
-                    sh "docker run -d --name $prometheusContainerName -p 9090:9090 -v $prometheusConfigPath:/etc/prometheus/prometheus.yml prom/prometheus"
-
-                    // Start Grafana container
-                    sh "docker run -d --name $grafanaContainerName -p 3000:3000 grafana/grafana"
-                }
-            }
-        }
  stage('Ansible Deployment') {
       ansiblePlaybook credentialsId: 'ansibleid1', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
         }
