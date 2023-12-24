@@ -39,10 +39,13 @@ def dockerHubUser="swatig139627"
  stage('Configure Monitoring') {
     steps {
         script {
+            def target = "172.31.3.191:9100"
             sh "echo '  - job_name: Ansible slave' >> $prometheusConfigPath"
             sh "echo '    static_configs:' >> $prometheusConfigPath"
-            sh "echo '      - targets: [\"172.31.3.191:9100\"]' >> $prometheusConfigPath"
+            sh "echo '      - targets: [\"$target\"]' >> $prometheusConfigPath"
 
+            // Wait for some time before moving to the next step
+            sleep 30
             // Wait for some time to allow Prometheus to discover and scrape targets
 
             // Update Grafana dashboards to visualize the metrics
