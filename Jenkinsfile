@@ -32,9 +32,40 @@ def dockerHubUser="swatig139627"
             echo "Image push complete"
         }
 }
+ 
+        stage('Start Prometheus and Grafana') {
+            steps {
+                script {
+                    // Start Prometheus container
+                    sh "docker run -d --name $prometheusContainerName -p 9090:9090 -v $prometheusConfigPath:/etc/prometheus/prometheus.yml prom/prometheus"
+
+                    // Start Grafana container
+                    sh "docker run -d --name $grafanaContainerName -p 3000:3000 grafana/grafana"
+                }
+            }
+        }
  stage('Ansible Deployment') {
       ansiblePlaybook credentialsId: 'ansibleid1', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
         }
+ stage('Configure Monitoring') {
+    steps {
+        script {
+            // Assuming your Ansible deployment sets up some monitoring-related configurations
+            // Update Prometheus configuration to scrape metrics from your deployed services
+           
+            // Wait for Prometheus to reload the configuration
+           
+
+            // Wait for some time to allow Prometheus to discover and scrape targets
+
+            // Update Grafana dashboards to visualize the metrics
+            // You may use Grafana API or CLI to import dashboards
+            // Example using Grafana API (replace the API key and dashboard JSON with your own)
+            
+        }
+    }
+}
+
     }
 
 
