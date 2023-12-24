@@ -4,6 +4,7 @@ node(){
 def containerName="healthins"
 def tag="latest"
 def dockerHubUser="swatig139627"
+ def prometheusConfigPath = "/etc/prometheus/prometheus.yml"
     
      
     stage('code checkout'){
